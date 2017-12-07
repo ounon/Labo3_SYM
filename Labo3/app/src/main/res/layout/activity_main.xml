@@ -4,32 +4,18 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
-    <EditText
-        android:id="@+id/text_login"
-        android:layout_width="wrap_content"
-        android:layout_height="45dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Login" />
-
-    <EditText
-        android:id="@+id/text_password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPassword" />
-
-    <EditText
-        android:id="@+id/text_tagNfc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/nfc"
         android:layout_width="215dp"
         android:layout_height="wrap_content"
-        android:text="Connect" />
+        android:text="NFC" />
+
+    <Button
+        android:id="@+id/qrcode"
+        android:layout_width="215dp"
+        android:layout_height="wrap_content"
+        android:text="QRCODE" />
 
 
 </LinearLayout>
