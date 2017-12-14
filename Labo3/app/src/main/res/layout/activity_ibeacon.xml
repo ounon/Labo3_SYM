@@ -5,16 +5,11 @@
     android:layout_height="fill_parent" >
 
 
-    <TextView
-        android:id="@+id/text_nfc"
-        android:layout_width="match_parent"
-        android:layout_height="45dp" />
 
     <TextView
-        android:id="@+id/text_nfc1"
+        android:id="@+id/text_ibeacon"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:text="Scanner le tag NFC pour vous connecter"/>
+        android:layout_height="45dp" />
 
 
 

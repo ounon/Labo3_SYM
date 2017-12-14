@@ -13,6 +13,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +24,7 @@ import java.util.Arrays;
 
 /**
  * Created by User on 07.12.2017.
+ * https://stackoverflow.com/questions/30462444/android-nfc-writing-doesnt-work-with-2-activities-but-works-with-1
  */
 
 public class NFCActivity extends AppCompatActivity {
@@ -28,7 +32,14 @@ public class NFCActivity extends AppCompatActivity {
     public static final String TAG = "NfcDemo";
 
     private TextView mTextView;
+    private TextView txtNfc;
     private NfcAdapter mNfcAdapter;
+    private final static String USERNAME = "iso";
+    private final static String PASSWORD = "12345";
+    private final static String TAG_VALUE = "test1 2 3 4";
+    private EditText usernameTxt = null;
+    private EditText passwordTxt = null;
+    private Button btnConnect = null; ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +47,10 @@ public class NFCActivity extends AppCompatActivity {
         setContentView(R.layout.activity_nfc);
 
         mTextView = (TextView) findViewById(R.id.text_nfc);
+        txtNfc = (TextView) findViewById(R.id.text_nfc1);
+        usernameTxt = (EditText) findViewById(R.id.text_login);
+        passwordTxt = (EditText) findViewById(R.id.text_password);
+        btnConnect = (Button) findViewById(R.id.button_nfc);
 
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
 
@@ -50,11 +65,15 @@ public class NFCActivity extends AppCompatActivity {
         if (!mNfcAdapter.isEnabled()) {
             mTextView.setText("NFC is disabled.");
         } else {
-            mTextView.setText(R.string.explanation);
+            //mTextView.setText(R.string.explanation);
+            mTextView.setText("");
         }
 
         handleIntent(getIntent());
+
+
     }
+
 
     @Override
     protected void onResume() {
@@ -90,7 +109,32 @@ public class NFCActivity extends AppCompatActivity {
     }
 
     private void handleIntent(Intent intent) {
-        // TODO: handle Intent
+        String action = intent.getAction();
+        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) {
+
+            String type = intent.getType();
+            if (MIME_TEXT_PLAIN.equals(type)) {
+
+                Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+                new NdefReaderTask().execute(tag);
+
+            } else {
+                Log.d(TAG, "Wrong mime type: " + type);
+            }
+        } else if (NfcAdapter.ACTION_TECH_DISCOVERED.equals(action)) {
+
+            // In case we would still use the Tech Discovered Intent
+            Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+            String[] techList = tag.getTechList();
+            String searchedTech = Ndef.class.getName();
+
+            for (String tech : techList) {
+                if (searchedTech.equals(tech)) {
+                    new NdefReaderTask().execute(tag);
+                    break;
+                }
+            }
+        }
     }
 
     /**
@@ -120,7 +164,7 @@ public class NFCActivity extends AppCompatActivity {
     }
 
     /**
-     * @param activity The corresponding {@link BaseActivity} requesting to stop the foreground dispatch.
+     * @param activity The corresponding {@link /*BaseActivity} requesting to stop the foreground dispatch.
      * @param adapter The {@link NfcAdapter} used for the foreground dispatch.
      */
     public static void stopForegroundDispatch(final Activity activity, NfcAdapter adapter) {
@@ -148,17 +192,27 @@ public class NFCActivity extends AppCompatActivity {
             NdefMessage ndefMessage = ndef.getCachedNdefMessage();
 
             NdefRecord[] records = ndefMessage.getRecords();
-            for (NdefRecord ndefRecord : records) {
-                if (ndefRecord.getTnf() == NdefRecord.TNF_WELL_KNOWN && Arrays.equals(ndefRecord.getType(), NdefRecord.RTD_TEXT)) {
+
+            String result = "";
+
+            /*try {
+                result = readText(records[0]);
+            } catch (UnsupportedEncodingException e) {
+                Log.e(TAG, "Unsupported Encoding", e);
+            }*/
+            for (int i = 0; i < 2; i++){
+           // for (NdefRecord ndefRecord : records) {
+                if (records[i].getTnf() == NdefRecord.TNF_WELL_KNOWN && Arrays.equals(records[i].getType(), NdefRecord.RTD_TEXT)) {
                     try {
-                        return readText(ndefRecord);
+                        result += readText(records[i]);
                     } catch (UnsupportedEncodingException e) {
                         Log.e(TAG, "Unsupported Encoding", e);
                     }
+                    //break;
                 }
             }
 
-            return null;
+            return result;
         }
 
         private String readText(NdefRecord record) throws UnsupportedEncodingException {
@@ -188,9 +242,22 @@ public class NFCActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(String result) {
+        protected void onPostExecute(final String result) {
             if (result != null) {
-                mTextView.setText("Read content: " + result);
+                if (result.equals(TAG_VALUE)){
+                    Intent intent = new Intent(NFCActivity.this, HomeActivity.class);
+                    startActivity(intent);
+                }
+                // mTextView.setText("Read content: " + result);
+                /*btnConnect.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        if (result.equals(TAG_VALUE)) {
+                            mTextView.setText("Connected");
+                        }
+                    }
+                });*/
             }
         }
     }

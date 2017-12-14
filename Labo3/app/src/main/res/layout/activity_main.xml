@@ -17,5 +17,11 @@
         android:layout_height="wrap_content"
         android:text="QRCODE" />
 
+    <Button
+        android:id="@+id/ibeacon"
+        android:layout_width="215dp"
+        android:layout_height="wrap_content"
+        android:text="IBeacon" />
+
 
 </LinearLayout>
