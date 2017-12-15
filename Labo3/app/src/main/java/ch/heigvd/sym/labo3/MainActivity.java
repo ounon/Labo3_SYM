@@ -11,6 +11,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btnNfc = null;
     private Button btnQRCode = null;
     private Button btnIBeacon = null;
+    private Button btnCapteurs = null;
 
 
     @Override
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
         this.btnNfc = (Button) findViewById(R.id.nfc);
         this.btnQRCode = (Button) findViewById(R.id.qrcode);
         this.btnIBeacon = (Button) findViewById(R.id.ibeacon);
+        this.btnCapteurs = (Button) findViewById(R.id.capteurs);
 
         btnNfc.setOnClickListener(new View.OnClickListener() {
 
@@ -52,6 +54,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btnCapteurs.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(MainActivity.this, CompassActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
 

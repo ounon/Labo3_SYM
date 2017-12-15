@@ -111,7 +111,7 @@ public class IBeaconActivity extends AppCompatActivity implements BeaconConsumer
                    // str = "The first beacon I see is about "+b.getDistance()+" meters away."+b.getRssi()+" mineur: " + b.getId2()+ " majeur: "+b.getId3();
                       //Log.i("Detect", "The first beacon I see is about "+beacons.iterator().next().getDistance()+" meters away.");
                     for(Beacon oneBeacon : beacons) {
-                        beaconAdapter.add(oneBeacon.getDistance());
+                        //beaconAdapter.add(oneBeacon.getDistance());
                         Beacon.setHardwareEqualityEnforced(true);
                     }
                     runOnUiThread(new Runnable() {

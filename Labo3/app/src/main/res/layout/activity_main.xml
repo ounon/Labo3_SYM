@@ -1,27 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
-
+<RelativeLayout android:id="@+id/RelativeLayout01"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
 
     <Button
         android:id="@+id/nfc"
         android:layout_width="215dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="230dp"
+        android:layout_centerHorizontal="true"
         android:text="NFC" />
 
     <Button
         android:id="@+id/qrcode"
         android:layout_width="215dp"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/nfc"
         android:text="QRCODE" />
 
     <Button
         android:id="@+id/ibeacon"
         android:layout_width="215dp"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/qrcode"
         android:text="IBeacon" />
 
+    <Button
+        android:id="@+id/capteurs"
+        android:layout_width="215dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/ibeacon"
+        android:text="Capteurs" />
 
-</LinearLayout>
+</RelativeLayout>
