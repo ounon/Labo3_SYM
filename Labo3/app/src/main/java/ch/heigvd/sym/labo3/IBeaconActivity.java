@@ -9,8 +9,7 @@ import android.os.RemoteException;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import org.altbeacon.beacon.Beacon;
@@ -32,14 +31,18 @@ public class IBeaconActivity extends AppCompatActivity implements BeaconConsumer
     private TextView txtIbeacon = null;
     private BeaconManager beaconManager;
     private String str = "";
-
+    private AdapterActivity beaconBaseAdapter;
+    private ListView beaconList;
 
     private static final int PERMISSION_REQUEST_COARSE_LOCATION = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ibeacon);
+        setContentView(R.layout.activity_ibeaconlist);
         txtIbeacon = (TextView) findViewById(R.id.text_ibeacon);
+        beaconList = (ListView) findViewById(R.id.ibeaconView);
+        beaconBaseAdapter = new AdapterActivity(this);
+        beaconList.setAdapter(beaconBaseAdapter);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             // Android M Permission check
@@ -105,19 +108,16 @@ public class IBeaconActivity extends AppCompatActivity implements BeaconConsumer
     public void onBeaconServiceConnect() {
         beaconManager.addRangeNotifier(new RangeNotifier() {
             @Override
-            public void didRangeBeaconsInRegion(Collection<Beacon> beacons, Region region) {
+            public void didRangeBeaconsInRegion(final Collection<Beacon> beacons, Region region) {
                 if (beacons.size() > 0) {
+
                     Beacon b = beacons.iterator().next();
-                   // str = "The first beacon I see is about "+b.getDistance()+" meters away."+b.getRssi()+" mineur: " + b.getId2()+ " majeur: "+b.getId3();
-                      //Log.i("Detect", "The first beacon I see is about "+beacons.iterator().next().getDistance()+" meters away.");
-                    for(Beacon oneBeacon : beacons) {
-                        beaconAdapter.add(oneBeacon.getDistance());
-                        Beacon.setHardwareEqualityEnforced(true);
-                    }
+                    str = "The first beacon I see is about "+b.getDistance()+" meters away."+b.getRssi()+" mineur: " + b.getId2()+ " majeur: "+b.getId3();
+                    Log.i("Detect", "The first beacon I see is about "+beacons.iterator().next().getDistance()+" meters away.");
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            txtIbeacon.setText(str);
+                            beaconBaseAdapter.initAll(beacons);
                         }
                     });
                 }
