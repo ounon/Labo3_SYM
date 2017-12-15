@@ -10,6 +10,7 @@ import android.widget.TextView;
 import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.Identifier;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -18,15 +19,13 @@ import java.util.Collection;
 
 public class AdapterActivity extends BaseAdapter {
 
-    Collection<Beacon> beacons;
-    Context context;
-    LayoutInflater inflater;
+    private ArrayList<Beacon> beacons;
+    private LayoutInflater inflater;
 
 
-    public AdapterActivity(Context applicationContext, Collection<Beacon> beacons){
-        this.beacons = beacons;
-        this.context = applicationContext;
-        inflater = (LayoutInflater.from(applicationContext));
+    public AdapterActivity(Context context){
+        this.beacons = new ArrayList<>();
+        inflater = LayoutInflater.from(context);
     }
 
     public void initAll(Collection<Beacon> newBeacons) {
@@ -38,25 +37,32 @@ public class AdapterActivity extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return 0;
+        return beacons.size();
     }
 
     @Override
-    public Object getItem(int i) {
-        return null;
+    public Beacon getItem(int position) {
+        return beacons.get(position);
     }
 
     @Override
-    public long getItemId(int i) {
-        return 0;
+    public long getItemId(int position) {
+        return position;
     }
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        view = inflater.inflate(R.layout.activity_ibeaconlist, null);
+        view = inflater.inflate(R.layout.activity_ibeacon, viewGroup, false);
         TextView txtIbeacon = (TextView) view.findViewById(R.id.text_ibeacon);
-        Identifier txt = beacons.iterator().next().getId2();
-        txtIbeacon.setText(txt.toString());
+        Identifier id = beacons.iterator().next().getId1();
+        Identifier major = beacons.iterator().next().getId2();
+        Identifier minor = beacons.iterator().next().getId3();
+        int rssi = beacons.iterator().next().getRssi();
+        String txt = "Beacon " + id.toString() +
+                     ", Major :" + major.toString() +
+                     ", Minor :" + minor.toString() +
+                     ", Rssi : " + rssi;
+        txtIbeacon.setText(txt);
         return view;
     }
 }
