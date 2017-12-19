@@ -1,16 +1,39 @@
 package ch.heigvd.sym.labo3;
 
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.opengl.GLSurfaceView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
-public class CompassActivity extends AppCompatActivity {
+public class CompassActivity extends AppCompatActivity implements SensorEventListener {
 
     //opengl
     private OpenGLRenderer  opglr           = null;
     private GLSurfaceView   m3DView         = null;
+
+
+    //Sensors
+    //
+
+    private SensorManager mSensorManager;
+    private Sensor mGeomagnetic;
+    private Sensor mGravity;
+
+    private float[] gravity;
+    private float[] magnetic;
+    private float rotationM[] = new float[16]; // will store matrix data
+    private float tmpRot[] = new float[16];
+
+    public CompassActivity() {
+
+
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +55,52 @@ public class CompassActivity extends AppCompatActivity {
         //init opengl surface view
         this.m3DView.setRenderer(this.opglr);
 
+        mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
+        mGravity = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mGeomagnetic= mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+
+    }
+
+    protected void onResume() {
+        super.onResume();
+        mSensorManager.registerListener(this, mGravity, SensorManager.SENSOR_DELAY_GAME);
+        mSensorManager.registerListener(this, mGeomagnetic, SensorManager.SENSOR_DELAY_GAME);
+    }
+
+    protected void onPause() {
+        super.onPause();
+        mSensorManager.unregisterListener(this, mGravity);
+        mSensorManager.unregisterListener(this, mGeomagnetic);
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+
+        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+            if (event.values != null)
+                gravity = event.values.clone(); // clone for continuity
+        }
+        if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
+            if (event.values != null)
+                magnetic = event.values.clone(); // clone for continuity
+        }
+        if (gravity != null && magnetic != null) { // we got data!
+
+            // following line uses knowledge of direction of gravity and
+            // magnetic field to get the orientation data
+            if (SensorManager.getRotationMatrix(rotationM, null, gravity, magnetic)) {
+
+                if(rotationM.equals(tmpRot)){
+                    tmpRot = this.opglr.swapRotMatrix(rotationM);
+
+                }
+                rotationM = tmpRot;
+            }
+        }
     }
 
     /* TODO */
