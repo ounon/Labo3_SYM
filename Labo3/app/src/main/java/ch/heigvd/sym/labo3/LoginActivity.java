@@ -19,10 +19,13 @@ public class LoginActivity extends AppCompatActivity{
     private EditText usernameTxt = null;
     private EditText passwordTxt = null;
     private Button btnConnect = null;
+    private Bundle b;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        b = getIntent().getExtras();
 
         usernameTxt = (EditText) findViewById(R.id.text_login);
         passwordTxt = (EditText) findViewById(R.id.text_password);
@@ -34,9 +37,14 @@ public class LoginActivity extends AppCompatActivity{
             public void onClick(View v) {
                 if (usernameTxt.getText().toString().equals(USERNAME)
                         && passwordTxt.getText().toString().equals(PASSWORD)) {
-                    Intent intent = new Intent(LoginActivity.this, NFCActivity.class);
-                   // intent.putExtra("emailEntered", mail);
-                    startActivity(intent);
+                    if (b.getBoolean("nfcLogin")) {
+                        Intent intent = new Intent(LoginActivity.this, NFCActivity.class);
+                        startActivity(intent);
+                    }
+                    else{
+                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                        startActivity(intent);
+                    }
                 }
             }
         });

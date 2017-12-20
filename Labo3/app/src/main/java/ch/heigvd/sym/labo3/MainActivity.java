@@ -22,14 +22,14 @@ public class MainActivity extends AppCompatActivity {
         this.btnNfc = (Button) findViewById(R.id.nfc);
         this.btnQRCode = (Button) findViewById(R.id.qrcode);
         this.btnIBeacon = (Button) findViewById(R.id.ibeacon);
-        this.btnCapteurs = (Button) findViewById(R.id.capteurs);
+        //this.btnCapteurs = (Button) findViewById(R.id.capteurs);
 
         btnNfc.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                Intent intent = new Intent(MainActivity.this, NfcMainActivity.class);
                 startActivity(intent);
             }
         });
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btnCapteurs.setOnClickListener(new View.OnClickListener() {
+/*        btnCapteurs.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, CompassActivity.class);
                 startActivity(intent);
             }
-        });
+        });*/
 
 
 
