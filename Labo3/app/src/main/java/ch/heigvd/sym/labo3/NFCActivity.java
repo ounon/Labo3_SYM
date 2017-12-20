@@ -22,8 +22,9 @@ import android.widget.Toast;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 
+
 /**
- * Created by User on 07.12.2017.
+ * Auteurs: Ibrahim Ounon & Emmanuel Schmid
  * https://stackoverflow.com/questions/30462444/android-nfc-writing-doesnt-work-with-2-activities-but-works-with-1
  */
 
@@ -32,14 +33,10 @@ public class NFCActivity extends AppCompatActivity {
     public static final String TAG = "NfcDemo";
 
     private TextView mTextView;
-    private TextView txtNfc;
     private NfcAdapter mNfcAdapter;
-    private final static String USERNAME = "iso";
-    private final static String PASSWORD = "12345";
-    private final static String TAG_VALUE = "test1 2 3 4";
-    private EditText usernameTxt = null;
-    private EditText passwordTxt = null;
-    private Button btnConnect = null; ;
+    private final static String TAG_VALUE = "test1 2 3 4"; // les premieres valeurs stockés dans le tag
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +44,6 @@ public class NFCActivity extends AppCompatActivity {
         setContentView(R.layout.activity_nfc);
 
         mTextView = (TextView) findViewById(R.id.text_nfc);
-        txtNfc = (TextView) findViewById(R.id.text_nfc1);
-        usernameTxt = (EditText) findViewById(R.id.text_login);
-        passwordTxt = (EditText) findViewById(R.id.text_password);
-        btnConnect = (Button) findViewById(R.id.button_nfc);
 
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
 
@@ -244,20 +237,12 @@ public class NFCActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(final String result) {
             if (result != null) {
+                // Une fois que le tag lu est correct on se connecte à l'application
                 if (result.equals(TAG_VALUE)){
                     Intent intent = new Intent(NFCActivity.this, HomeActivity.class);
                     startActivity(intent);
                 }
-                // mTextView.setText("Read content: " + result);
-                /*btnConnect.setOnClickListener(new View.OnClickListener() {
 
-                    @Override
-                    public void onClick(View v) {
-                        if (result.equals(TAG_VALUE)) {
-                            mTextView.setText("Connected");
-                        }
-                    }
-                });*/
             }
         }
     }

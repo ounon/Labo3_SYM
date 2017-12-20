@@ -6,6 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+/**
+ * Auteurs: Ibrahim Ounon & Emmanuel Schmid
+ */
+
 public class MainActivity extends AppCompatActivity {
 
     private Button btnNfc = null;

@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 /**
- * Created by User on 08.12.2017.
+ * Auteurs: Ibrahim Ounon & Emmanuel Schmid
  */
 
 public class LoginActivity extends AppCompatActivity{
@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity{
             public void onClick(View v) {
                 if (usernameTxt.getText().toString().equals(USERNAME)
                         && passwordTxt.getText().toString().equals(PASSWORD)) {
-                    if (b.getBoolean("nfcLogin")) {
+                    if (b.getBoolean("secondAuthentification")) {
                         Intent intent = new Intent(LoginActivity.this, NFCActivity.class);
                         startActivity(intent);
                     }

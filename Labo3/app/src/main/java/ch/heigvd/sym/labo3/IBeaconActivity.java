@@ -22,7 +22,7 @@ import org.altbeacon.beacon.Region;
 import java.util.Collection;
 
 /**
- * Created by User on 08.12.2017.
+ * Auteurs: Ibrahim Ounon & Emmanuel Schmid
  * https://altbeacon.github.io/android-beacon-library/requesting_permission.html
  */
 

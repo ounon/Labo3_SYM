@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * Created by User on 13.12.2017.
+ * Auteurs: Ibrahim Ounon & Emmanuel Schmid
  */
 
 public class AdapterActivity extends BaseAdapter {

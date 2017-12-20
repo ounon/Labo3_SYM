@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 /**
- * Created by User on 08.12.2017.
+ * Auteurs: Ibrahim Ounon & Emmanuel Schmid
  */
 
 public class HomeActivity extends AppCompatActivity{

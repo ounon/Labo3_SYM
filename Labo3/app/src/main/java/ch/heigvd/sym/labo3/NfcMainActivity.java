@@ -15,10 +15,8 @@ public class NfcMainActivity extends AppCompatActivity {
     private Button btnOnlyNfc = null;
     private Button btnOnlyLogin = null;
 
-    private boolean nfcLogin;
-  /*  private boolean onlyLogin;
-    private boolean onlyNfc;*/
-
+    private boolean secondAuthentification; // true s'il faut en plus du login lire le tag NFC avant d'acceder à l'application
+                              // false si aprés le login faut acceder directement à l'application
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +32,9 @@ public class NfcMainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                nfcLogin = true;
+                secondAuthentification = true;
                 Intent intent = new Intent(NfcMainActivity.this, LoginActivity.class);
-                intent.putExtra("nfcLogin",nfcLogin);
+                intent.putExtra("nfcLogin",secondAuthentification);
                 startActivity(intent);
             }
         });
@@ -54,9 +52,9 @@ public class NfcMainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                nfcLogin = false;
+                secondAuthentification = false;
                 Intent intent = new Intent(NfcMainActivity.this, LoginActivity.class);
-                intent.putExtra("onlyLogin",nfcLogin);
+                intent.putExtra("onlyLogin",secondAuthentification);
                 startActivity(intent);
             }
         });
