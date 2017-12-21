@@ -15,6 +15,7 @@ import ch.heigvd.sym.labo3.objects.ObjLoader;
 
 /**
  * Class used to render the 3d compass
+ * Auteurs: Ibrahim Ounon & Emmanuel Schmid
  */
 public class OpenGLRenderer implements Renderer {
 

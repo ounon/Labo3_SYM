@@ -15,6 +15,7 @@ import java.util.Collection;
 
 /**
  * Auteurs: Ibrahim Ounon & Emmanuel Schmid
+ * Adaptateur permettant de gerer la listview pour afficher les ibeacons
  */
 
 public class AdapterActivity extends BaseAdapter {
@@ -28,7 +29,8 @@ public class AdapterActivity extends BaseAdapter {
         inflater = LayoutInflater.from(context);
     }
 
-    public void initAll(Collection<Beacon> newBeacons) {
+    // remplir le tableau des beacons avec une collection de beacon
+    public void fill(Collection<Beacon> newBeacons) {
         this.beacons.clear();
         this.beacons.addAll(newBeacons);
         notifyDataSetChanged();
@@ -54,6 +56,8 @@ public class AdapterActivity extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         view = inflater.inflate(R.layout.activity_ibeacon, viewGroup, false);
         TextView txtIbeacon = (TextView) view.findViewById(R.id.text_ibeacon);
+
+        // Recuperation les infos concernant le ibeacons
         Identifier id = beacons.iterator().next().getId1();
         Identifier major = beacons.iterator().next().getId2();
         Identifier minor = beacons.iterator().next().getId3();
@@ -62,6 +66,8 @@ public class AdapterActivity extends BaseAdapter {
                      ", Major :" + major.toString() +
                      ", Minor :" + minor.toString() +
                      ", Rssi : " + rssi;
+
+        // Affichage des infos dans la cellule de la liste view
         txtIbeacon.setText(txt);
         return view;
     }

@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 /**
- * Created by User on 20.12.2017.
+ * Auteurs: Ibrahim Ounon & Emmanuel Schmid
  */
 
 public class NfcMainActivity extends AppCompatActivity {

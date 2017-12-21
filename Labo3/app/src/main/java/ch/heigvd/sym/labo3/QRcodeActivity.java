@@ -11,7 +11,8 @@ import com.google.zxing.integration.android.IntentResult;
 import com.google.zxing.qrcode.encoder.QRCode;
 
 /**
- * Created by User on 07.12.2017.
+ * Auteurs: Ibrahim Ounon & Emmanuel Schmid
+ * https://github.com/journeyapps/zxing-android-embedded
  */
 
 public class QRcodeActivity extends AppCompatActivity{

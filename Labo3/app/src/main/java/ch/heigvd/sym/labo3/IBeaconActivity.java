@@ -28,9 +28,8 @@ import java.util.Collection;
 
 public class IBeaconActivity extends AppCompatActivity implements BeaconConsumer{
 
-    private TextView txtIbeacon = null;
+
     private BeaconManager beaconManager;
-    private String str = "";
     private AdapterActivity beaconBaseAdapter;
     private ListView beaconList;
 
@@ -39,7 +38,6 @@ public class IBeaconActivity extends AppCompatActivity implements BeaconConsumer
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ibeaconlist);
-        txtIbeacon = (TextView) findViewById(R.id.text_ibeacon);
         beaconList = (ListView) findViewById(R.id.ibeaconView);
         beaconBaseAdapter = new AdapterActivity(this);
         beaconList.setAdapter(beaconBaseAdapter);
@@ -112,12 +110,12 @@ public class IBeaconActivity extends AppCompatActivity implements BeaconConsumer
                 if (beacons.size() > 0) {
 
                     Beacon b = beacons.iterator().next();
-                    str = "The first beacon I see is about "+b.getDistance()+" meters away."+b.getRssi()+" mineur: " + b.getId2()+ " majeur: "+b.getId3();
                     Log.i("Detect", "The first beacon I see is about "+beacons.iterator().next().getDistance()+" meters away.");
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            beaconBaseAdapter.initAll(beacons);
+                            // On remplit la liste avec les beacons detecter
+                            beaconBaseAdapter.fill(beacons);
                         }
                     });
                 }
