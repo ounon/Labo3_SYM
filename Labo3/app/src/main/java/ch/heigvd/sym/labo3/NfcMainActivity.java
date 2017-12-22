@@ -54,7 +54,7 @@ public class NfcMainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 secondAuthentification = false;
                 Intent intent = new Intent(NfcMainActivity.this, LoginActivity.class);
-                intent.putExtra("onlyLogin",secondAuthentification);
+                intent.putExtra("nfcLogin",secondAuthentification);
                 startActivity(intent);
             }
         });
