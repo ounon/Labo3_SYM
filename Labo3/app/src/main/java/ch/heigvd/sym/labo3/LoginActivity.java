@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity{
             public void onClick(View v) {
                 if (usernameTxt.getText().toString().equals(USERNAME)
                         && passwordTxt.getText().toString().equals(PASSWORD)) {
-                    if (b.getBoolean("secondAuthentification")) {
+                    if (b.getBoolean("nfcLogin")) {
                         Intent intent = new Intent(LoginActivity.this, NFCActivity.class);
                         startActivity(intent);
                     }
