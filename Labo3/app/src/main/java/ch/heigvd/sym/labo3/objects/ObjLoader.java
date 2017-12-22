@@ -14,6 +14,7 @@ import java.util.Random;
 import javax.microedition.khronos.opengles.GL10;
 
 /**
+ *  Auteurs: Ibrahim Ounon & Emmanuel Schmid
  *	Class used to load and draw a 3D model (Wavefront .obj file)
  *  https://en.wikipedia.org/wiki/Wavefront_.obj_file
  */

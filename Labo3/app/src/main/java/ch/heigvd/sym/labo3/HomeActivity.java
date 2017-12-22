@@ -18,6 +18,8 @@ public class HomeActivity extends AppCompatActivity{
     private Button btnInfo = null;
 
     private static final int AUTHENTICATE_MAX = 60000; // en ms, 60000ms = 1 min
+    //private static final int AUTHENTICATE_MEDIUM = 120000; // en ms, 120000ms = 2 min
+    //private static final int AUTHENTICTE_LOW = 240000; // en ms, 240000ms = 4 min
     long startTime; // Temps de depart après l'authentification
     long endTime;  // Temps de fin, lorsque l'utilisateur clique si le bouton info pour lire l'info
 
@@ -38,7 +40,7 @@ public class HomeActivity extends AppCompatActivity{
                 endTime = System.currentTimeMillis();
 
                 // Avant une minute on accès l'information sinon il faut se reloguer pour voir
-                if (endTime - startTime < AUTHENTICATE_MAX){
+                if (endTime - startTime < AUTHENTICATE_MAX) { // On peut remplacer AUTHENTICATE_MAX par AUTHETICATE_MEDIUM ou AUTHETICATE_LOW
                     text.setText("Information");
                 }
                 else{

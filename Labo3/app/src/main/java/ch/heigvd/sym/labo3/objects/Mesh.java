@@ -7,6 +7,8 @@ import java.nio.ShortBuffer;
 
 import javax.microedition.khronos.opengles.GL10;
 
+/*Auteurs: Ibrahim Ounon & Emmanuel Schmid*/
+
 public class Mesh {
 	// Our vertex buffer.
 	private FloatBuffer verticesBuffer = null;
