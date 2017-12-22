@@ -30,12 +30,12 @@
         android:text="IBeacon" />
 
     <Button
-        android:id="@+id/capteurs"
+        android:id="@+id/compass"
         android:layout_width="215dp"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/ibeacon"
-        android:text="Capteurs" />
+        android:text="Compass" />
 
 </RelativeLayout>
