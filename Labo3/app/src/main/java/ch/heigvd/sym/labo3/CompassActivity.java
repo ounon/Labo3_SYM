@@ -26,12 +26,9 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
 
     private float[] gravity;
     private float[] magnetic;
-    private float rotationM[] = new float[16]; // will store matrix data
-    private float tmpRot[] = new float[16];
+    private float rotationM[]; // will store matrix data
 
     public CompassActivity() {
-
-
     }
 
 
@@ -58,6 +55,8 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
         mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
         mGravity = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mGeomagnetic= mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+
+        rotationM = new float[16];
 
     }
 
@@ -88,27 +87,18 @@ public class CompassActivity extends AppCompatActivity implements SensorEventLis
             if (event.values != null)
                 magnetic = event.values.clone(); // clone for continuity
         }
+
         if (gravity != null && magnetic != null) { // we got data!
 
             // following line uses knowledge of direction of gravity and
             // magnetic field to get the orientation data
             if (SensorManager.getRotationMatrix(rotationM, null, gravity, magnetic)) {
 
-                if(rotationM.equals(tmpRot)){
-                    tmpRot = this.opglr.swapRotMatrix(rotationM);
+                rotationM = this.opglr.swapRotMatrix(rotationM);
 
-                }
-                rotationM = tmpRot;
             }
+            gravity = null;
+            magnetic = null;
         }
     }
-
-    /* TODO */
-    // your activity need to register accelerometer and magnetometer sensors' updates
-    // then you may want to call
-    //  this.opglr.swapRotMatrix()
-    // with the 4x4 rotation matrix, everytime a new matrix is computed
-    // more information on rotation matrix can be found on-line:
-    // https://developer.android.com/reference/android/hardware/SensorManager.html#getRotationMatrix(float[],%20float[],%20float[],%20float[])
-
 }
